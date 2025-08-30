@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up - Career Mapper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .signup-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+        .logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .welcome-text {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+        .signup-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+        .login-link {
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .login-link a:hover {
+            color: #764ba2;
+        }
+        .benefits {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5e9;
+        }
+        .benefits h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #666;
+            font-size: 14px;
+            text-align: left;
+        }
+        .benefit-item span {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .password-requirements {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .password-requirements h5 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .password-requirements ul {
+            color: #666;
+            font-size: 12px;
+            margin-left: 15px;
+        }
+        .password-requirements li {
+            margin-bottom: 3px;
+        }
+        @media (max-width: 480px) {
+            .signup-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            .back-link {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 20px;
+                display: inline-block;
+                color: #667eea;
+                background: rgba(102, 126, 234, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">← Back to Home</a>
+    
+    <div class="signup-container">
+        <span class="logo">🚀</span>
+        <h2>Join Career Mapper</h2>
+        <p class="welcome-text">
+            Start your journey to career success with AI-powered guidance and personalized roadmaps.
+        </p>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required placeholder="Choose a unique username" minlength="3">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required placeholder="Create a strong password" minlength="6">
+                <div class="password-requirements">
+                    <h5>Password Requirements:</h5>
+                    <ul>
+                        <li>At least 6 characters long</li>
+                        <li>Use a mix of letters and numbers</li>
+                        <li>Consider adding special characters</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <button type="submit" class="signup-btn">
+                ✨ Create My Account
+            </button>
+        </form>
+        
+        <div class="login-link">
+            Already have an account? <a href='/login'>Sign in here</a>
+        </div>
+        
+        <div class="benefits">
+            <h4>What you'll get:</h4>
+            <div class="benefit-item">
+                <span>🎯</span>
+                <span>Personalized career path recommendations</span>
+            </div>
+            <div class="benefit-item">
+                <span>📝</span>
+                <span>AI-powered resume optimization</span>
+            </div>
+            <div class="benefit-item">
+                <span>📅</span>
+                <span>Interactive career roadmap calendar</span>
+            </div>
+            <div class="benefit-item">
+                <span>📊</span>
+                <span>Industry insights and trend analysis</span>
+            </div>
+            <div class="benefit-item">
+                <span>🔒</span>
+                <span>Secure and private data handling</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <div style="margin-bottom: 40px;">
+            <h1 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 48px;">🚀</span>
+                Welcome to Caria
+            </h1>
+            <p style="font-size: 20px; margin-top: 20px; color: #555; font-weight: 400;">
+                Empowering your career journey with AI-powered guidance and personalized roadmaps. 
+                Take control of your professional future with data-driven insights and expert recommendations.
+            </p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 50px 0;">
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 30px; border-radius: 15px; border-left: 5px solid #667eea; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h3 style="color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; font-size: 20px;">
+                    <span style="font-size: 24px;">🎯</span> AI Career Planning
+                </h3>
+                <p style="color: #666; font-size: 15px; line-height: 1.6;">Get personalized career paths powered by advanced AI technology that analyzes your skills, interests, and market trends to provide tailored recommendations.</p>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 30px; border-radius: 15px; border-left: 5px solid #28a745; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h3 style="color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; font-size: 20px;">
+                    <span style="font-size: 24px;">📝</span> Resume Optimization
+                </h3>
+                <p style="color: #666; font-size: 15px; line-height: 1.6;">Tailor your resume for specific jobs with AI-powered suggestions that highlight relevant experience and optimize keywords for applicant tracking systems.</p>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 30px; border-radius: 15px; border-left: 5px solid #fd7e14; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                <h3 style="color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; font-size: 20px;">
+                    <span style="font-size: 24px;">📅</span> Career Roadmaps
+                </h3>
+                <p style="color: #666; font-size: 15px; line-height: 1.6;">Create timeline-based career plans with actionable milestones, skill development goals, and clear steps to achieve your professional objectives.</p>
+            </div>
+        </div>
+        
+        <div style="margin: 50px 0; text-align: center;">
+            <a href="/login" class="cta-button" style="margin-right: 20px; display: inline-block;">
+                🚀 Start Your Journey
+            </a>
+            <a href="/about" style="color: #667eea; text-decoration: none; font-weight: 500; padding: 15px 20px; display: inline-block;">
+                Learn More →
+            </a>
+        </div>
+        
+        <div style="margin-top: 60px; padding: 40px; background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%); border-radius: 20px; border-left: 5px solid #2196f3;">
+            <h3 style="color: #1976d2; margin-bottom: 25px; font-size: 24px; font-weight: 600;">
+                <span style="margin-right: 10px;">✨</span> Why Choose Caria?
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 30px;">
+                <div>
+                    <h4 style="color: #333; margin-bottom: 12px; font-size: 18px; font-weight: 600;">🤖 AI-Powered Intelligence</h4>
+                    <p style="color: #666; font-size: 15px; line-height: 1.6;">Advanced machine learning algorithms analyze industry trends, job market data, and successful career patterns to provide accurate, personalized recommendations.</p>
+                </div>
+                <div>
+                    <h4 style="color: #333; margin-bottom: 12px; font-size: 18px; font-weight: 600;">📊 Data-Driven Insights</h4>
+                    <p style="color: #666; font-size: 15px; line-height: 1.6;">Comprehensive analysis based on real-time industry data, salary trends, skill demands, and successful career transition patterns across various fields.</p>
+                </div>
+                <div>
+                    <h4 style="color: #333; margin-bottom: 12px; font-size: 18px; font-weight: 600;">🎯 Goal-Oriented Approach</h4>
+                    <p style="color: #666; font-size: 15px; line-height: 1.6;">Clear, actionable roadmaps with specific milestones, timelines, and measurable goals to help you systematically achieve your dream career.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
