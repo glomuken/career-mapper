@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Caria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --forest-green: #1f2937;
+            --sage-green: #6b7280;
+            --accent-teal: #059669;
+            --warm-gray: #6b7280;
+            --soft-white: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 12px;
+            padding: 48px 60px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            color: var(--sage-green);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 20px;
+            background: white;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link:hover {
+            background: var(--soft-white);
+            color: var(--forest-green);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .brand {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .brand h1 {
+            color: var(--forest-green);
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        
+        .brand p {
+            color: var(--sage-green);
+            font-size: 18px;
+            font-weight: 400;
+        }
+        
+        h2 {
+            color: var(--forest-green);
+            margin-bottom: 40px;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 28px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--forest-green);
+            font-size: 16px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+            color: var(--forest-green);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: var(--sage-green);
+        }
+        
+        .login-btn {
+            width: 100%;
+            background: var(--accent-teal);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+        
+        .login-btn:hover {
+            background: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+        }
+        
+        .linkedin-btn {
+            width: 100%;
+            background: #0077B5;
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .linkedin-btn:hover {
+            background: #005582;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 119, 181, 0.2);
+        }
+        
+        .linkedin-icon {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0077B5;
+            font-size: 14px;
+        }
+        
+        .divider {
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        
+        .divider span {
+            background: white;
+            padding: 0 20px;
+            color: var(--sage-green);
+            font-size: 16px;
+        }
+        
+        .signup-link {
+            text-align: center;
+            color: var(--sage-green);
+            font-size: 16px;
+        }
+        
+        .signup-link a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup-link a:hover {
+            color: #047857;
+        }
+        
+        .features {
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid #f3f4f6;
+        }
+        
+        .features h3 {
+            color: var(--forest-green);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .feature-list {
+            display: grid;
+            gap: 16px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            color: var(--sage-green);
+            font-size: 16px;
+            padding: 12px 0;
+        }
+        
+        .feature-item::before {
+            content: '✓';
+            color: var(--accent-teal);
+            font-weight: bold;
+            margin-right: 16px;
+            font-size: 18px;
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                max-width: 480px;
+                padding: 40px 32px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+            
+            .login-container {
+                padding: 32px 24px;
+                max-width: 100%;
+            }
+            
+            .back-link {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 24px;
+                display: inline-block;
+            }
+            
+            .brand h1 {
+                font-size: 30px;
+            }
+            
+            .brand p {
+                font-size: 16px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">← Back to Home</a>
+    
+    <div class="login-container">
+        <div class="brand">
+            <h1>Caria</h1>
+            <p>Career Intelligence Platform</p>
+        </div>
+        
+        <h2>Sign In</h2>
+        
+        <!-- LinkedIn Login Button -->
+        <button class="linkedin-btn" onclick="linkedinLogin()">
+            <div class="linkedin-icon">in</div>
+            Continue with LinkedIn
+        </button>
+        
+        <div class="divider">
+            <span>or</span>
+        </div>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required placeholder="Enter your username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required placeholder="Enter your password">
+            </div>
+            
+            <button type="submit" class="login-btn">
+                Sign In
+            </button>
+        </form>
+        
+        <div class="divider">
+            <span>or</span>
+        </div>
+        
+        <div class="signup-link">
+            Don't have an account? <a href='/signup'>Create one here</a>
+        </div>
+        
+        <div class="features">
+            <h3>What you get:</h3>
+            <div class="feature-list">
+                <div class="feature-item">AI-powered career recommendations</div>
+                <div class="feature-item">Intelligent resume optimization</div>
+                <div class="feature-item">Personalized learning paths</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function linkedinLogin() {
+            // Fake LinkedIn login - shows coming soon message
+            alert('LinkedIn login is coming soon! Please use email/password for now.');
+            
+            // For future implementation, this would redirect to LinkedIn OAuth:
+            // window.location.href = '/auth/linkedin';
+        }
+    </script>
+</body>
+</html>

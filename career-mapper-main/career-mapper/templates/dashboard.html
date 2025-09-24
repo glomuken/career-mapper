@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Caria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --forest-green: #1f2937;
+            --sage-green: #6b7280;
+            --accent-teal: #059669;
+            --warm-gray: #6b7280;
+            --soft-white: #f9fafb;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-success: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+        }
+        
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 24px;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid rgba(255,255,255,0.2);
+            padding-bottom: 20px;
+        }
+        
+        .sidebar-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .sidebar-header .user-info {
+            font-size: 14px;
+            opacity: 0.9;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+        
+        .nav-section {
+            margin-bottom: 30px;
+        }
+        
+        .nav-section-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .nav-item {
+            padding: 14px 18px;
+            margin: 6px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+        
+        .nav-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: rgba(255,255,255,0.3);
+            font-weight: 600;
+        }
+        
+        .nav-item-icon {
+            font-size: 18px;
+            width: 20px;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 32px;
+            background-color: #fff;
+            margin: 24px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        
+        .welcome-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .welcome-message {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        
+        .primary-action {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        .primary-action:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+        
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .action-card {
+            background: var(--soft-white);
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--forest-green);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 12px;
+        }
+        
+        .action-card:hover {
+            border-color: var(--accent-teal);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.15);
+        }
+        
+        .action-card-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .action-card-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .tips-list {
+            list-style: none;
+        }
+        
+        .tips-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .tip-icon {
+            color: var(--accent-teal);
+            font-weight: bold;
+            margin-top: 2px;
+        }
+        
+        .job-trends {
+            background: var(--soft-white);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-teal);
+            white-space: pre-line;
+            line-height: 1.6;
+        }
+        
+        .logout-container {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            right: 24px;
+        }
+        
+        .logout-btn {
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(220, 53, 69, 1);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 16px;
+            }
+            
+            .main-content {
+                margin: 16px;
+                padding: 20px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>Caria</h1>
+                <div class="user-info">
+                    {{ profile_type.title() }} • {{ name }}
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Main</div>
+                <div class="nav-item active" onclick="window.location.href='/dashboard'">
+                    <span class="nav-item-icon">🏠</span>
+                    Dashboard
+                </div>
+                <div class="nav-item" onclick="window.location.href='/app'">
+                    <span class="nav-item-icon">🎯</span>
+                    Career Planner
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Tools</div>
+                <div class="nav-item" onclick="window.location.href='/tailor-resume'">
+                    <span class="nav-item-icon">📝</span>
+                    Resume Tailor
+                </div>
+                <div class="nav-item" onclick="window.location.href='/career-calendar'">
+                    <span class="nav-item-icon">📅</span>
+                    Career Calendar
+                </div>
+                <div class="nav-item" onclick="window.location.href='/career-break'">
+                    <span class="nav-item-icon">🏖️</span>
+                    Career Break
+                </div>
+                {% if profile_type == 'student' %}
+                <div class="nav-item" onclick="window.location.href='/career-interest-test'">
+                    <span class="nav-item-icon">🧪</span>
+                    Career Test
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Account</div>
+                <div class="nav-item">
+                    <span class="nav-item-icon">⚙️</span>
+                    Settings
+                </div>
+                <div class="nav-item" onclick="window.location.href='/'">
+                    <span class="nav-item-icon">🌐</span>
+                    Visit Site
+                </div>
+            </div>
+            
+            <div class="logout-container">
+                <form method="POST" action="/logout">
+                    <button type="submit" class="logout-btn">
+                        <span>🚪</span>
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-content">
+                    <div class="welcome-message">
+                        {{ dashboard_content.welcome_message }}
+                    </div>
+                    <a href="{{ dashboard_content.primary_action_url }}" class="primary-action">
+                        {{ dashboard_content.primary_action }}
+                    </a>
+                </div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <!-- Quick Actions -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🚀</div>
+                        <div class="card-title">Quick Actions</div>
+                    </div>
+                    <div class="action-grid">
+                        {% for action in dashboard_content.secondary_actions %}
+                        <a href="{{ action.url }}" class="action-card">
+                            <div class="action-card-icon">{{ action.icon }}</div>
+                            <div class="action-card-title">{{ action.title }}</div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Tips & Insights -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">💡</div>
+                        <div class="card-title">
+                            {% if profile_type == 'professional' %}
+                                Market Insights
+                            {% else %}
+                                Career Tips
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    {% if profile_type == 'professional' and dashboard_content.job_trends %}
+                    <div class="job-trends">
+                        {{ dashboard_content.job_trends }}
+                    </div>
+                    {% else %}
+                    <ul class="tips-list">
+                        {% for tip in dashboard_content.tips %}
+                        <li>
+                            <span class="tip-icon">•</span>
+                            <span>{{ tip }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Personalization Prompt (if not completed) -->
+            {% if not has_completed_personalization %}
+            <div class="card" style="border-left: 4px solid var(--accent-teal); background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 100%);">
+                <div class="card-header">
+                    <div class="card-icon" style="background: var(--gradient-success);">🎯</div>
+                    <div class="card-title">Complete Your Profile</div>
+                </div>
+                <p style="color: var(--sage-green); margin-bottom: 16px;">
+                    {% if profile_type == 'student' %}
+                    Take our career interest test to get personalized career recommendations tailored to your interests and skills.
+                    {% elif profile_type == 'professional' %}
+                    Tell us about your professional interests to get targeted job opportunities and skill development suggestions.
+                    {% elif profile_type == 'mentor' %}
+                    Set up your mentoring preferences to start connecting with mentees and make an impact.
+                    {% endif %}
+                </p>
+                <a href="{{ dashboard_content.primary_action_url }}" class="primary-action" style="background: var(--gradient-success); margin-top: 0;">
+                    <span>🎯</span>
+                    {% if profile_type == 'student' %}
+                    Take Career Test
+                    {% elif profile_type == 'professional' %}
+                    Set Preferences
+                    {% elif profile_type == 'mentor' %}
+                    Set Up Mentoring
+                    {% endif %}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

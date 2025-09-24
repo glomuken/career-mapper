@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mentor Preferences - Caria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --forest-green: #1f2937;
+            --sage-green: #6b7280;
+            --accent-teal: #059669;
+            --warm-gray: #6b7280;
+            --soft-white: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: var(--forest-green);
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h3 {
+            color: var(--forest-green);
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-item:hover {
+            background: var(--soft-white);
+            border-color: var(--accent-teal);
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .schedule-table th,
+        .schedule-table td {
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        
+        .schedule-table th {
+            background: var(--soft-white);
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+        
+        .schedule-table td {
+            background: white;
+        }
+        
+        .day-row {
+            font-weight: 500;
+            color: var(--forest-green);
+        }
+        
+        .time-checkbox {
+            transform: scale(1.2);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-item:hover {
+            background: var(--soft-white);
+        }
+        
+        .radio-item input[type="radio"]:checked + span {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-teal);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #047857;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <h1>Mentor Availability Form</h1>
+            <p>Set your mentoring preferences and availability</p>
+        </div>
+        
+        <form method="POST">
+            <div class="section">
+                <h3>Preferred Mentoring Format</h3>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="mentoring_format" value="in_person" id="in_person">
+                        <label for="in_person">In-person</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="mentoring_format" value="online" id="online">
+                        <label for="online">Online (Zoom/Teams/Google Meet)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="mentoring_format" value="phone" id="phone">
+                        <label for="phone">Phone Call</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="mentoring_format" value="flexible" id="flexible">
+                        <label for="flexible">Flexible / No Preference</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Weekly Availability</h3>
+                <p style="margin-bottom: 20px; color: var(--sage-green);">Mark the time slots when you are available for mentoring sessions:</p>
+                
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Morning<br>(8am–12pm)</th>
+                            <th>Afternoon<br>(12pm–4pm)</th>
+                            <th>Evening<br>(4pm–8pm)</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="day-row">Monday</td>
+                            <td><input type="checkbox" class="time-checkbox" name="monday_morning"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="monday_afternoon"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="monday_evening"></td>
+                            <td><input type="text" name="monday_notes" style="width: 100%; border: none; padding: 5px;"></td>
+                        </tr>
+                        <tr>
+                            <td class="day-row">Tuesday</td>
+                            <td><input type="checkbox" class="time-checkbox" name="tuesday_morning"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="tuesday_afternoon"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="tuesday_evening"></td>
+                            <td><input type="text" name="tuesday_notes" style="width: 100%; border: none; padding: 5px;"></td>
+                        </tr>
+                        <tr>
+                            <td class="day-row">Wednesday</td>
+                            <td><input type="checkbox" class="time-checkbox" name="wednesday_morning"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="wednesday_afternoon"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="wednesday_evening"></td>
+                            <td><input type="text" name="wednesday_notes" style="width: 100%; border: none; padding: 5px;"></td>
+                        </tr>
+                        <tr>
+                            <td class="day-row">Thursday</td>
+                            <td><input type="checkbox" class="time-checkbox" name="thursday_morning"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="thursday_afternoon"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="thursday_evening"></td>
+                            <td><input type="text" name="thursday_notes" style="width: 100%; border: none; padding: 5px;"></td>
+                        </tr>
+                        <tr>
+                            <td class="day-row">Friday</td>
+                            <td><input type="checkbox" class="time-checkbox" name="friday_morning"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="friday_afternoon"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="friday_evening"></td>
+                            <td><input type="text" name="friday_notes" style="width: 100%; border: none; padding: 5px;"></td>
+                        </tr>
+                        <tr>
+                            <td class="day-row">Saturday</td>
+                            <td><input type="checkbox" class="time-checkbox" name="saturday_morning"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="saturday_afternoon"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="saturday_evening"></td>
+                            <td><input type="text" name="saturday_notes" style="width: 100%; border: none; padding: 5px;"></td>
+                        </tr>
+                        <tr>
+                            <td class="day-row">Sunday</td>
+                            <td><input type="checkbox" class="time-checkbox" name="sunday_morning"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="sunday_afternoon"></td>
+                            <td><input type="checkbox" class="time-checkbox" name="sunday_evening"></td>
+                            <td><input type="text" name="sunday_notes" style="width: 100%; border: none; padding: 5px;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h3>Session Preferences</h3>
+                
+                <div class="form-group">
+                    <label>Maximum sessions per week:</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="max_sessions" value="1" required>
+                            <span>1</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="max_sessions" value="2" required>
+                            <span>2</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="max_sessions" value="3" required>
+                            <span>3</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="max_sessions" value="4+" required>
+                            <span>4+</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Preferred session length:</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="session_length" value="30" required>
+                            <span>30 minutes</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="session_length" value="60" required>
+                            <span>1 hour</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="session_length" value="flexible" required>
+                            <span>Flexible</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="timezone">Time zone:</label>
+                    <input type="text" name="timezone" id="timezone" placeholder="e.g., GMT+2, EST, PST" required>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="form-group">
+                    <label for="scheduling_notes">Additional Notes</label>
+                    <textarea name="scheduling_notes" id="scheduling_notes" rows="4"
+                             placeholder="Any specific scheduling requests or restrictions..."></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                Save Mentor Preferences
+            </button>
+        </form>
+    </div>
+</body>
+</html>

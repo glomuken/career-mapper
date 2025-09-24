@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Onboarding - Career Mapper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+    .onboarding-container { background: #fff; border-radius: 16px; max-width: 1000px; margin: 40px auto; padding: 32px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+        h2 { color: #333; margin-bottom: 18px; }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px 32px;
+            align-items: start;
+        }
+        .form-group {
+            margin-bottom: 0;
+            width: 100%;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        select, input[type="file"], input[type="text"], input[type="email"], input[type="url"], textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1.5px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 48px;
+            resize: vertical;
+        }
+        .submit-btn {
+            grid-column: 1 / -1;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .submit-btn:hover { box-shadow: 0 4px 16px rgba(102,126,234,0.15); }
+        @media (max-width: 900px) {
+            .onboarding-container { max-width: 98vw; }
+            form { grid-template-columns: 1fr; }
+        }
+        .submit-btn { width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .submit-btn:hover { box-shadow: 0 4px 16px rgba(102,126,234,0.15); }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+    <h2>Onboarding Form</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="resume_only" id="resume_only" value="">
+            
+            <div class="form-group">
+                <label for="life_stage">Where are you in your career/life?</label>
+                <select name="life_stage" id="life_stage" required>
+                    <option value="">Select one...</option>
+                    <option value="high_school" {% if life_stage=='high_school' %}selected{% endif %}>High School Student</option>
+                    <option value="student" {% if life_stage=='student' %}selected{% endif %}>University/College Student</option>
+                    <option value="recent_grad" {% if life_stage=='recent_grad' %}selected{% endif %}>Recent Graduate</option>
+                    <option value="early_career" {% if life_stage=='early_career' %}selected{% endif %}>Early Career Professional</option>
+                    <option value="mid_career" {% if life_stage=='mid_career' %}selected{% endif %}>Mid-Career Professional</option>
+                    <option value="career_change" {% if life_stage=='career_change' %}selected{% endif %}>Career Changer</option>
+                    <option value="other" {% if life_stage=='other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" name="name" id="name" placeholder="Your full name" required value="{{ name|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" placeholder="you@email.com" required value="{{ email|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" name="phone" id="phone" placeholder="Optional" value="{{ phone|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="currentStatus">Current Status (e.g. Grade 11, Matric, etc.)</label>
+                <input type="text" name="currentStatus" id="currentStatus" placeholder="e.g. Grade 11, Matric, etc." required value="{{ currentStatus|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="school">School Name</label>
+                <input type="text" name="school" id="school" placeholder="Your school name" required value="{{ school|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="subjects">Subjects (comma separated)</label>
+                <input type="text" name="subjects" id="subjects" placeholder="e.g. Maths, English, Science" value="{{ subjects|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="activities">Extracurricular Activities</label>
+                <textarea name="activities" id="activities" rows="2" placeholder="e.g. Soccer team, Debate club, etc.">{{ activities|default('') }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="skills">Skills</label>
+                <input type="text" name="skills" id="skills" placeholder="e.g. Teamwork, Coding, Leadership" value="{{ skills|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="awards">Awards & Honors</label>
+                <input type="text" name="awards" id="awards" placeholder="e.g. Math Olympiad Winner" value="{{ awards|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="volunteering">Volunteer/Community Service</label>
+                <textarea name="volunteering" id="volunteering" rows="2" placeholder="e.g. Tutoring, Soup kitchen volunteer">{{ volunteering|default('') }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="interests">Hobbies & Interests</label>
+                <input type="text" name="interests" id="interests" placeholder="e.g. Reading, Chess, Coding" value="{{ interests|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="dreamJob">Dream Job</label>
+                <input type="text" name="dreamJob" id="dreamJob" placeholder="e.g. Software Engineer, Doctor, etc." required value="{{ dreamJob|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="linkedin">LinkedIn Profile (optional)</label>
+                <input type="url" name="linkedin" id="linkedin" placeholder="https://linkedin.com/in/yourprofile" value="{{ linkedin|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="website">Personal Website/Portfolio (optional)</label>
+                <input type="url" name="website" id="website" placeholder="https://yourwebsite.com" value="{{ website|default('') }}" />
+            </div>
+            <div class="form-group">
+                <label for="reference">Reference Contact (optional)</label>
+                <input type="text" name="reference" id="reference" placeholder="e.g. Teacher: Ms. Smith, 0123456789" value="{{ reference|default('') }}" />
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="bio">Short Bio / Summary</label>
+                <textarea name="bio" id="bio" rows="2" placeholder="A few sentences about yourself">{{ bio|default('') }}</textarea>
+            </div>
+            <div class="form-group">
+                                <label for="resume">Upload your resume (PDF/DOCX, optional)</label>
+                                <input type="file" name="resume" id="resume" accept=".pdf,.docx" />
+                                {% if resume_path %}
+                                    <div class="file-info">Resume uploaded: {{ resume_path.split('/')[-1] }}</div>
+                                {% endif %}
+                                <small>If you upload a resume, we'll try to autofill the form above.</small>
+            </div>
+            <script>
+            document.getElementById('resume').addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    document.getElementById('resume_only').value = '1';
+                    this.form.submit();
+                }
+            });
+            </script>
+            <button type="submit" class="submit-btn">Continue</button>
+        </form>
+    </div>
+</body>
+</html>

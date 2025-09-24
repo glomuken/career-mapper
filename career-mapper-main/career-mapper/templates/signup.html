@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up - Caria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --forest-green: #1f2937;
+            --sage-green: #6b7280;
+            --accent-teal: #059669;
+            --warm-gray: #6b7280;
+            --soft-white: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .signup-container {
+            background: white;
+            border-radius: 12px;
+            padding: 48px 60px;
+            max-width: 1000px;
+            width: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            color: var(--sage-green);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 20px;
+            background: white;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link:hover {
+            background: var(--soft-white);
+            color: var(--forest-green);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .brand {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .brand h1 {
+            color: var(--forest-green);
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        
+        .brand p {
+            color: var(--sage-green);
+            font-size: 18px;
+            font-weight: 400;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 20px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .step.active {
+            background: var(--accent-teal);
+            color: white;
+        }
+        
+        .step.inactive {
+            background: #e5e7eb;
+            color: var(--sage-green);
+        }
+        
+        .linkedin-btn {
+            width: 100%;
+            background: #0077B5;
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .linkedin-btn:hover {
+            background: #005582;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 119, 181, 0.2);
+        }
+        
+        .linkedin-icon {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #0077B5;
+            font-size: 14px;
+        }
+        
+        .profile-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+        
+        .profile-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 40px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .profile-card:hover {
+            border-color: var(--accent-teal);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(5, 150, 105, 0.15);
+        }
+        
+        .profile-card.selected {
+            border-color: var(--accent-teal);
+            background: rgba(5, 150, 105, 0.02);
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.15);
+        }
+        
+        .profile-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--accent-teal);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .profile-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--soft-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .profile-card:hover .profile-icon {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: var(--accent-teal);
+        }
+        
+        .profile-card.selected .profile-icon {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: var(--accent-teal);
+        }
+        
+        .profile-icon-symbol {
+            font-size: 32px;
+            color: var(--forest-green);
+        }
+        
+        .profile-card:hover .profile-icon-symbol,
+        .profile-card.selected .profile-icon-symbol {
+            color: var(--accent-teal);
+        }
+        
+        .profile-title {
+            color: var(--forest-green);
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .profile-description {
+            color: var(--sage-green);
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        .profile-badge {
+            margin-top: 20px;
+            padding: 8px 16px;
+            background: var(--soft-white);
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--sage-green);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .profile-card:hover .profile-badge,
+        .profile-card.selected .profile-badge {
+            background: rgba(5, 150, 105, 0.1);
+            border-color: var(--accent-teal);
+            color: var(--accent-teal);
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--forest-green);
+            font-size: 14px;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+            color: var(--forest-green);
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+        
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: var(--sage-green);
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 8px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        
+        .file-upload {
+            border: 2px dashed #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            background: var(--soft-white);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--accent-teal);
+            background: rgba(5, 150, 105, 0.05);
+        }
+        
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-teal);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+        
+        .submit-btn:hover {
+            background: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .divider {
+            margin: 24px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        
+        .divider span {
+            background: white;
+            padding: 0 20px;
+            color: var(--sage-green);
+            font-size: 14px;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--sage-green);
+            font-size: 14px;
+        }
+        
+        .login-link a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            color: #047857;
+        }
+        
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 32px 24px;
+                max-width: 100%;
+            }
+            
+            .profile-cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .brand h1 {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .back-link {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin-bottom: 24px;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/login" class="back-link">← Back to Login</a>
+    
+    <div class="signup-container">
+        <div class="brand">
+            <h1>Caria</h1>
+            <p>Join the Career Intelligence Platform</p>
+        </div>
+        
+        <div class="step-indicator">
+            <div class="step active" id="step1">
+                <span>1</span> Choose Profile
+            </div>
+            <div class="step inactive" id="step2">
+                <span>2</span> Basic Details
+            </div>
+        </div>
+        
+        <!-- Step 1: Profile Selection -->
+        <div class="form-section active" id="profileSelection">
+            <h2 style="text-align: center; color: var(--forest-green); margin-bottom: 32px; font-weight: 600;">
+                Choose Your Profile Type
+            </h2>
+            
+            
+            <div class="divider">
+                <span>or choose your profile manually</span>
+            </div>
+            
+            <div class="profile-cards">
+                <div class="profile-card" onclick="selectProfile('student')">
+                    <div>
+                        <div class="profile-icon">
+                            <span class="profile-icon-symbol">🎓</span>
+                        </div>
+                        <div class="profile-title">Student</div>
+                        <div class="profile-description">Explore careers, get study help, and track your future path</div>
+                    </div>
+                    <div class="profile-badge">Academic Focus</div>
+                </div>
+                
+                <div class="profile-card" onclick="selectProfile('professional')">
+                    <div>
+                        <div class="profile-icon">
+                            <span class="profile-icon-symbol">💼</span>
+                        </div>
+                        <div class="profile-title">Professional</div>
+                        <div class="profile-description">Upskill, track opportunities, and grow your career</div>
+                    </div>
+                    <div class="profile-badge">Career Growth</div>
+                </div>
+                
+                <div class="profile-card" onclick="selectProfile('mentor')">
+                    <div>
+                        <div class="profile-icon">
+                            <span class="profile-icon-symbol">🏆</span>
+                        </div>
+                        <div class="profile-title">Mentor</div>
+                        <div class="profile-description">Guide others and build your impact as a mentor</div>
+                    </div>
+                    <div class="profile-badge">Leadership</div>
+                </div>
+            </div>
+            
+            <button class="submit-btn" onclick="nextStep()" id="continueBtn" disabled>
+                Continue to Details →
+            </button>
+        </div>
+        
+        <!-- Step 2: Sign Up Form -->
+        <div class="form-section" id="signupForm">
+            <h2 style="text-align: center; color: var(--forest-green); margin-bottom: 32px; font-weight: 600;" id="formTitle">
+                Complete Your Registration
+            </h2>
+            
+            <!-- LinkedIn Connect Button for Step 2 -->
+            <button class="linkedin-btn" onclick="linkedinConnect()" style="margin-bottom: 24px;">
+                <div class="linkedin-icon">in</div>
+                Connect with LinkedIn
+            </button>
+            
+            <div class="divider">
+                <span>or complete manually</span>
+            </div>
+            
+            <form method="POST" enctype="multipart/form-data" id="registrationForm">
+                <input type="hidden" name="profile_type" id="profileType">
+                
+                <!-- Common Fields -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" name="name" id="name" required placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" name="email" id="email" required placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" name="phone" id="phone" required placeholder="Enter your phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">Country / Region</label>
+                        <select name="country" id="country" required>
+                            <option value="">Select your country</option>
+                            <option value="south-africa">South Africa</option>
+                            <option value="united-states">United States</option>
+                            <option value="united-kingdom">United Kingdom</option>
+                            <option value="canada">Canada</option>
+                            <option value="australia">Australia</option>
+                            <option value="germany">Germany</option>
+                            <option value="france">France</option>
+                            <option value="india">India</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" required placeholder="Create a password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" name="confirmPassword" id="confirmPassword" required placeholder="Confirm your password">
+                    </div>
+                </div>
+                
+                <!-- Student Specific Fields -->
+                <div id="studentFields" style="display: none;">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="educationLevel">Current Education Level</label>
+                            <select name="educationLevel" id="educationLevel">
+                                <option value="">Select your level</option>
+                                <option value="high-school">High School</option>
+                                <option value="college">College/University</option>
+                                <option value="postgraduate">Postgraduate</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dreamRole">Dream Role (if known)</label>
+                            <input type="text" name="dreamRole" id="dreamRole" placeholder="e.g., Software Developer, Doctor">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Current Grades / Results (Optional)</label>
+                        <div class="file-upload" onclick="document.getElementById('gradesFile').click()">
+                            <input type="file" name="gradesFile" id="gradesFile" accept=".pdf,.jpg,.png,.doc,.docx">
+                            <div>📄 Click to upload your grades or results</div>
+                            <small style="color: var(--sage-green); margin-top: 8px; display: block;">PDF, DOC, or image files accepted</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Professional Specific Fields -->
+                <div id="professionalFields" style="display: none;">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="jobTitle">Current Job Title</label>
+                            <input type="text" name="jobTitle" id="jobTitle" placeholder="e.g., Marketing Manager">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="industry">Industry</label>
+                            <select name="industry" id="industry">
+                                <option value="">Select your industry</option>
+                                <option value="technology">Technology</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="finance">Finance</option>
+                                <option value="education">Education</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="consulting">Consulting</option>
+                                <option value="retail">Retail</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="experience">Years of Experience</label>
+                            <select name="experience" id="experience">
+                                <option value="">Select experience level</option>
+                                <option value="0-1">0-1 years</option>
+                                <option value="2-5">2-5 years</option>
+                                <option value="6-10">6-10 years</option>
+                                <option value="10+">10+ years</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="careerGoals">Career Goals</label>
+                            <input type="text" name="careerGoals" id="careerGoals" placeholder="e.g., Senior Manager, Entrepreneur">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload Resume (Optional)</label>
+                        <div class="file-upload" onclick="document.getElementById('professionalResume').click()">
+                            <input type="file" name="professionalResume" id="professionalResume" accept=".pdf,.doc,.docx">
+                            <div>📄 Click to upload your resume</div>
+                            <small style="color: var(--sage-green); margin-top: 8px; display: block;">PDF or DOC files accepted</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mentor Specific Fields -->
+                <div id="mentorFields" style="display: none;">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="profession">Profession & Specialization</label>
+                            <input type="text" name="profession" id="profession" placeholder="e.g., Senior Software Engineer">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mentorExperience">Years of Experience</label>
+                            <select name="mentorExperience" id="mentorExperience">
+                                <option value="">Select experience level</option>
+                                <option value="5-10">5-10 years</option>
+                                <option value="10-15">10-15 years</option>
+                                <option value="15+">15+ years</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Areas You Can Mentor</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="technology" id="tech">
+                                <label for="tech">Technology</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="business" id="business">
+                                <label for="business">Business</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="medicine" id="medicine">
+                                <label for="medicine">Medicine</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="engineering" id="engineering">
+                                <label for="engineering">Engineering</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="finance" id="finance">
+                                <label for="finance">Finance</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="marketing" id="marketing">
+                                <label for="marketing">Marketing</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="law" id="law">
+                                <label for="law">Law</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="design" id="design">
+                                <label for="design">Design</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="education" id="educationMentor">
+                                <label for="educationMentor">Education</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="sales" id="sales">
+                                <label for="sales">Sales</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="hr" id="hr">
+                                <label for="hr">Human Resources</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="consulting" id="consultingMentor">
+                                <label for="consultingMentor">Consulting</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="media" id="media">
+                                <label for="media">Media & Communications</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="science" id="science">
+                                <label for="science">Science & Research</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="arts" id="arts">
+                                <label for="arts">Arts & Creative</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="mentorAreas" value="nonprofit" id="nonprofit">
+                                <label for="nonprofit">Non-Profit</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload Resume (Optional)</label>
+                        <div class="file-upload" onclick="document.getElementById('mentorResume').click()">
+                            <input type="file" name="mentorResume" id="mentorResume" accept=".pdf,.doc,.docx">
+                            <div>📄 Click to upload your resume</div>
+                            <small style="color: var(--sage-green); margin-top: 8px; display: block;">PDF or DOC files accepted</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    Create Account
+                </button>
+            </form>
+        </div>
+        
+        <div class="login-link">
+            Already have an account? <a href="/login">Sign in here</a>
+        </div>
+    </div>
+    
+    <script>
+        let selectedProfile = null;
+        
+        function linkedinSignup() {
+            // Fake LinkedIn signup - shows coming soon message
+            alert('LinkedIn signup is coming soon! Please choose a profile type below to continue.');
+        }
+        
+        function linkedinConnect() {
+            // Fake LinkedIn connect - auto-fills some fields
+            alert('LinkedIn integration is coming soon! This will auto-fill your professional information.');
+            
+            // For demonstration, you could auto-fill some fake data here
+            // document.getElementById('name').value = 'John Doe';
+            // document.getElementById('email').value = 'john.doe@email.com';
+        }
+        
+        function selectProfile(profileType) {
+            // Remove previous selection
+            document.querySelectorAll('.profile-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked card
+            event.currentTarget.classList.add('selected');
+            
+            selectedProfile = profileType;
+            document.getElementById('continueBtn').disabled = false;
+        }
+        
+        function nextStep() {
+            if (!selectedProfile) return;
+            
+            // Update step indicator
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step1').classList.add('inactive');
+            document.getElementById('step2').classList.remove('inactive');
+            document.getElementById('step2').classList.add('active');
+            
+            // Hide profile selection, show form
+            document.getElementById('profileSelection').classList.remove('active');
+            document.getElementById('signupForm').classList.add('active');
+            
+            // Set profile type
+            document.getElementById('profileType').value = selectedProfile;
+            
+            // Show relevant fields
+            showRelevantFields(selectedProfile);
+            
+            // Update form title
+            const titles = {
+                student: 'Student Registration',
+                professional: 'Professional Registration', 
+                mentor: 'Mentor Registration'
+            };
+            document.getElementById('formTitle').textContent = titles[selectedProfile];
+        }
+        
+        function showRelevantFields(profileType) {
+            // Hide all specific fields
+            document.getElementById('studentFields').style.display = 'none';
+            document.getElementById('professionalFields').style.display = 'none';
+            document.getElementById('mentorFields').style.display = 'none';
+            
+            // Show relevant fields
+            if (profileType === 'student') {
+                document.getElementById('studentFields').style.display = 'block';
+            } else if (profileType === 'professional') {
+                document.getElementById('professionalFields').style.display = 'block';
+            } else if (profileType === 'mentor') {
+                document.getElementById('mentorFields').style.display = 'block';
+            }
+        }
+        
+        // File upload feedback for all file inputs
+        function setupFileUpload(inputId) {
+            document.getElementById(inputId).addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const uploadDiv = e.target.parentElement;
+                    uploadDiv.innerHTML = `
+                        <input type="file" name="${e.target.name}" id="${inputId}" accept="${e.target.accept}">
+                        <div>✅ ${file.name} selected</div>
+                        <small style="color: var(--accent-teal); margin-top: 8px; display: block;">File ready for upload</small>
+                    `;
+                }
+            });
+        }
+        
+        // Setup file uploads when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setupFileUpload('gradesFile');
+            setupFileUpload('professionalResume');
+            setupFileUpload('mentorResume');
+        });
+        
+        // Password confirmation validation
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (password !== confirmPassword) {
+                this.style.borderColor = '#dc3545';
+            } else {
+                this.style.borderColor = '#059669';
+            }
+        });
+        
+        // Form submission handling
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Passwords do not match. Please check and try again.');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.textContent = 'Creating Account...';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>

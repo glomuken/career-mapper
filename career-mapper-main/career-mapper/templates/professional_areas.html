@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professional Areas - Caria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --forest-green: #1f2937;
+            --sage-green: #6b7280;
+            --accent-teal: #059669;
+            --warm-gray: #6b7280;
+            --soft-white: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: var(--forest-green);
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h3 {
+            color: var(--forest-green);
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-item:hover {
+            background: var(--soft-white);
+            border-color: var(--accent-teal);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+        
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-item:hover {
+            background: var(--soft-white);
+        }
+        
+        .radio-item input[type="radio"]:checked + span {
+            color: var(--accent-teal);
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--forest-green);
+        }
+        
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-teal);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: #047857;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <h1>Professional Areas of Interest</h1>
+            <p>Help us understand your professional interests and career preferences</p>
+        </div>
+        
+        <form method="POST">
+            <div class="section">
+                <h3>Professional Interests</h3>
+                <p style="margin-bottom: 20px; color: var(--sage-green);">Select up to 3 areas you are most interested in:</p>
+                
+                <div class="checkbox-grid">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="areas" value="team_leadership" id="team_leadership">
+                        <label for="team_leadership">Team Leadership</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="areas" value="project_management" id="project_management">
+                        <label for="project_management">Project Management</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="areas" value="software_development" id="software_development">
+                        <label for="software_development">Software Development</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="areas" value="data_science" id="data_science">
+                        <label for="data_science">Data Science & AI</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="areas" value="marketing_sales" id="marketing_sales">
+                        <label for="marketing_sales">Marketing & Sales</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="areas" value="finance" id="finance">
+                        <label for="finance">Finance & Accounting</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="areas" value="hr" id="hr">
+                        <label for="hr">Human Resources</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="areas" value="content_creation" id="content_creation">
+                        <label for="content_creation">Content Creation</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>Work Style Preferences</h3>
+                
+                <div class="form-group">
+                    <label>Do you prefer:</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="work_style" value="independent" required>
+                            <span>Independent work</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="work_style" value="collaborative" required>
+                            <span>Collaborative teamwork</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="work_style" value="hybrid" required>
+                            <span>Hybrid balance</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Work environment:</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="work_environment" value="corporate" required>
+                            <span>Corporate</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="work_environment" value="startup" required>
+                            <span>Startup/Entrepreneurial</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="work_environment" value="nonprofit" required>
+                            <span>Non-Profit / NGO</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="work_environment" value="remote" required>
+                            <span>Freelance / Remote</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Career goals (select top 2):</label>
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="career_goals" value="leadership" id="leadership">
+                            <label for="leadership">Climb the leadership ladder</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="career_goals" value="switch_industries" id="switch_industries">
+                            <label for="switch_industries">Switch industries</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="career_goals" value="specialization" id="specialization">
+                            <label for="specialization">Technical specialization</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="career_goals" value="work_life_balance" id="work_life_balance">
+                            <label for="work_life_balance">Better work-life balance</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="career_goals" value="social_impact" id="social_impact">
+                            <label for="social_impact">Make social impact</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="form-group">
+                    <label for="additional_notes">Additional Notes</label>
+                    <textarea name="additional_notes" id="additional_notes" 
+                             placeholder="Describe any specific interests, skills you'd like to develop, or industries you'd like to explore..."></textarea>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                Get My Professional Recommendations
+            </button>
+        </form>
+    </div>
+</body>
+</html>

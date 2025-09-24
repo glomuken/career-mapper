@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Career Interest Test - Caria</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --forest-green: #1f2937;
+            --sage-green: #6b7280;
+            --accent-teal: #059669;
+            --warm-gray: #6b7280;
+            --soft-white: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: var(--forest-green);
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: var(--sage-green);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .instructions {
+            background: var(--soft-white);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-teal);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h3 {
+            color: var(--forest-green);
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .question-text {
+            font-size: 16px;
+            color: var(--forest-green);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scale-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        
+        .scale-option:hover {
+            background: var(--soft-white);
+        }
+        
+        .scale-option input[type="radio"] {
+            margin-bottom: 5px;
+            transform: scale(1.2);
+        }
+        
+        .scale-label {
+            font-size: 12px;
+            color: var(--sage-green);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .scale-number {
+            font-weight: bold;
+            color: var(--forest-green);
+            margin-bottom: 5px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-teal);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: #047857;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .progress {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-teal), #10b981);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .back-btn {
+            background: var(--sage-green);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background: var(--forest-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <a href="/dashboard" class="back-btn">← Back to Dashboard</a>
+        
+        <div class="header">
+            <h1>Career Interest Test</h1>
+            <p>Discover your ideal career path through this comprehensive assessment</p>
+        </div>
+        
+        <div class="instructions">
+            <h4 style="color: var(--forest-green); margin-bottom: 10px;">Instructions:</h4>
+            <p>Read each statement and rate how much you agree with it on a scale of 1 (Strongly Disagree) to 5 (Strongly Agree).</p>
+        </div>
+        
+        <div class="progress">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        
+        <form method="POST" id="careerTestForm">
+            <!-- Section A: Interests & Preferences -->
+            <div class="section">
+                <h3>Section A – Interests & Preferences</h3>
+                
+                <div class="question">
+                    <div class="question-text">1. I enjoy solving logical problems and puzzles.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q1" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q1" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q1" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q1" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q1" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">2. I like creating things, whether it's art, music, writing, or design.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q2" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q2" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q2" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q2" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q2" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">3. I enjoy helping people with their personal or professional problems.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q3" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q3" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q3" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q3" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q3" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. I prefer working with machines, tools, or physical objects.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q4" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q4" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q4" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q4" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q4" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. I'm interested in leading teams and making big decisions.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q5" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q5" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q5" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q5" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q5" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">6. I enjoy working with data, numbers, and research.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q6" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q6" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q6" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q6" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q6" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. I prefer jobs where I can move around rather than sit at a desk all day.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q7" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q7" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q7" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q7" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q7" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. I like teaching, mentoring, or guiding others.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q8" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q8" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q8" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q8" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q8" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">9. I am curious about how businesses and markets work.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q9" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q9" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q9" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q9" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q9" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">10. I like coming up with innovative ideas to improve things.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q10" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q10" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q10" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q10" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q10" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section B: Work Style & Values -->
+            <div class="section">
+                <h3>Section B – Work Style & Values</h3>
+                
+                <div class="question">
+                    <div class="question-text">11. I want a career that allows me to be creative and express myself.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q11" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q11" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q11" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q11" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q11" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">12. I prefer stable, structured work with clear rules and procedures.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q12" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q12" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q12" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q12" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q12" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">13. I enjoy teamwork and group projects.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q13" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q13" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q13" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q13" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q13" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">14. I would rather work independently and control my own schedule.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q14" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q14" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q14" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q14" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q14" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">15. I like jobs that challenge me to learn new technologies.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q15" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q15" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q15" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q15" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q15" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">16. I prefer careers that involve helping society or making a positive impact.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q16" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q16" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q16" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q16" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q16" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">17. I like competitive environments where performance is rewarded.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q17" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q17" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q17" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q17" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q17" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">18. I want a career that allows travel and new experiences.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q18" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q18" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q18" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q18" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q18" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">19. I value high income and financial security.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q19" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q19" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q19" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q19" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q19" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-text">20. I value work-life balance over long hours for career growth.</div>
+                    <div class="rating-scale">
+                        <div class="scale-option">
+                            <div class="scale-number">1</div>
+                            <input type="radio" name="q20" value="1" required>
+                            <div class="scale-label">Strongly Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">2</div>
+                            <input type="radio" name="q20" value="2">
+                            <div class="scale-label">Disagree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">3</div>
+                            <input type="radio" name="q20" value="3">
+                            <div class="scale-label">Neutral</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">4</div>
+                            <input type="radio" name="q20" value="4">
+                            <div class="scale-label">Agree</div>
+                        </div>
+                        <div class="scale-option">
+                            <div class="scale-number">5</div>
+                            <input type="radio" name="q20" value="5">
+                            <div class="scale-label">Strongly Agree</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Complete Assessment & Get Results
+            </button>
+        </form>
+    </div>
+    
+    <script>
+        // Progress tracking
+        const form = document.getElementById('careerTestForm');
+        const progressBar = document.getElementById('progressBar');
+        const submitBtn = document.getElementById('submitBtn');
+        const totalQuestions = 20;
+        
+        function updateProgress() {
+            // Count all unique questions that have been answered
+            const answeredQuestions = new Set();
+            
+            // Get all radio buttons that are checked
+            const checkedRadios = form.querySelectorAll('input[type="radio"]:checked');
+            
+            // Add each answered question to the set (removes duplicates)
+            checkedRadios.forEach(radio => {
+                answeredQuestions.add(radio.name);
+            });
+            
+            const progress = (answeredQuestions.size / totalQuestions) * 100;
+            progressBar.style.width = progress + '%';
+            
+            // Enable submit button only when all questions are answered
+            if (answeredQuestions.size === totalQuestions) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            } else {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.6';
+            }
+            
+            console.log(`Answered: ${answeredQuestions.size}/${totalQuestions}`);
+        }
+        
+        // Listen for changes on all radio buttons
+        form.addEventListener('change', updateProgress);
+        
+        // Initial progress check
+        updateProgress();
+        
+        // Form submission validation
+        form.addEventListener('submit', function(e) {
+            const answeredQuestions = new Set();
+            const checkedRadios = form.querySelectorAll('input[type="radio"]:checked');
+            
+            checkedRadios.forEach(radio => {
+                answeredQuestions.add(radio.name);
+            });
+            
+            if (answeredQuestions.size < totalQuestions) {
+                e.preventDefault();
+                alert(`Please answer all questions. You have answered ${answeredQuestions.size} out of ${totalQuestions} questions.`);
+                return false;
+            }
+            
+            // Show loading state
+            submitBtn.textContent = 'Processing Results...';
+            submitBtn.disabled = true;
+        });
+    </script>
+</body>
+</html>
